@@ -18,10 +18,7 @@ public:
         this->espacio = espacio;
     }
 
-    int getEspacio()
-    {
-        return espacio;
-    }
+    int getEspacio() { return espacio; }
 };
 
 class Tropa : public Campamento
@@ -30,8 +27,7 @@ protected:
     string nombreTropa;
 
 public:
-    Tropa(string nombreTropa, int espacio)
-        : Campamento(espacio)
+    Tropa(string nombreTropa, int espacio) : Campamento(espacio)
     {
         this->nombreTropa = nombreTropa;
     }
@@ -39,7 +35,7 @@ public:
     virtual void Presentar()
     {
         cout << "Nombre de la tropa: " << nombreTropa << endl;
-        cout << "Espacio que ocupa: " << espacio << endl;
+        cout << "Espacio: " << espacio << endl;
     }
 
     virtual ~Tropa() {}
@@ -87,7 +83,6 @@ int main()
 
     int Campa;
     int opc;
-
     int espacioTotal;
     int espacioDisponible;
     int tropasCreadas = 0;
@@ -96,8 +91,7 @@ int main()
     cout << "   CLASH OF CLANS   " << endl;
     cout << "====================" << endl;
     cout << "\n";
-
-    cout << "Arma tu ejercito para luchar contra las aldeas." << endl;
+    cout << "Arma tu ejercito para luchar contra otras aldeas." << endl;
     cout << "Andando..." << endl;
 
     while (true)
