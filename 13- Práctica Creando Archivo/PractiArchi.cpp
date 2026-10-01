@@ -138,8 +138,12 @@ int main()
         cout << "\n";
     }
 
-    filesystem::create_directories(escritorio + "DIR-1/DIR-2");
+    // CREAR CARPETA
+    filesystem::create_directory(escritorio + "DIR-0");
     // filesystem::create_directories = Sirve para crear carpetas
+
+    // CREAR CARPETAS MULTIPLES
+    filesystem::create_directories(escritorio + "DIR-1/DIR-2"); // CARPETA DIR-2 SE CREA ADENTRO DE DIR-1
 
     return 1;
 }

@@ -106,13 +106,14 @@ public:
 
 Arma elegirArma()
 {
+    /*
     Arma espada("Espada", 25);         // Daño crítico o Debilidad
     Arma cuchillo("Cuchillo", 30);     // Daño crítico o Debilidad
     Arma lanza("Lanza", 35);           // Aturdido
     Arma motosierra("Motosierra", 35); // Aturdido
     Arma metralleta("MK-500", 55);     // Errar o apunta a la cabaza
     Arma escopeta("FK-400", 40);       // Errar o apunta a la cabeza
-
+    */
     int opcion;
 
     cout << "\n===== ELEGIR ARMA =====" << endl;
@@ -125,6 +126,7 @@ Arma elegirArma()
     cout << "Opcion: ";
     cin >> opcion;
 
+    /*
     while (opcion < 1 || opcion > 6)
     {
         cout << "Opcion invalida. Elija nuevamente: ";
@@ -143,6 +145,7 @@ Arma elegirArma()
         return metralleta;
     else
         return escopeta;
+    */
 };
 
 int main()
