@@ -1,0 +1,4 @@
+Arroz;20;2300
+Tomate;15;1850
+Choclo;35;2600
+Pescado;10;6000
