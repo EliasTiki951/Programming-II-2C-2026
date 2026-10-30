@@ -1,0 +1,228 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Productos
+{
+protected:
+    string nombre;
+    double precio;
+    int stock, codigo;
+
+public:
+    // Constructor
+    Productos(string nombre, double precio, int stock, int codigo)
+    {
+        this->nombre = nombre;
+        this->precio = precio;
+        this->stock = stock;
+        this->codigo = codigo;
+    }
+
+    // Métodos Set
+    void setNombre(string n) { nombre = n; }
+    void setPrecio(double p) { precio = p; }
+    void setStock(int st) { stock = st; }
+    void setCodigo(int code) { codigo = code; }
+
+    // Métodos Get
+    string getNombre() { return nombre; }
+    double getPrecio() { return precio; }
+    int getStock() { return stock; }
+    int getCodigo() { return codigo; }
+
+    // Métodos indicados en la clase Productos
+    void mostrar()
+    {
+        cout << "id: " << codigo << endl;
+        cout << "Nombre: " << nombre << endl;
+        cout << "Stock: " << stock << endl;
+        cout << "Precio: " << precio << endl;
+        cout << endl;
+    }
+
+    void productosIngresados()
+    {
+        cout << "Productos ingresados correctamente." << endl;
+    }
+
+    // Destructor
+    virtual ~Productos() {}
+};
+
+class Calculo
+{
+public:
+    void calcularTotal(Productos *productos[], int cantidad)
+    {
+        double total = 0;
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (productos[i] != nullptr)
+            {
+                total += productos[i]->getPrecio() * productos[i]->getStock();
+            }
+        }
+        cout << "Valor total del inventario: " << total << endl;
+    }
+
+    void calcularPromedio(Productos *productos[], int cantidad)
+    {
+        double total = 0;
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (productos[i] != nullptr)
+            {
+                total += productos[i]->getPrecio() * productos[i]->getStock();
+            }
+        }
+        cout << "Promedio de los productos: " << total / cantidad << endl;
+    }
+
+    void calcularMaximo(Productos *productos[], int cantidad)
+    {
+        double maximo = productos[0]->getPrecio() * productos[0]->getStock();
+        for (int i = 1; i < cantidad; i++)
+        {
+            double valor = productos[i]->getPrecio() * productos[i]->getStock();
+            if (valor > maximo)
+            {
+                maximo = valor;
+            }
+        }
+        cout << "Mayor valor: " << maximo << endl;
+    }
+
+    void calcularMinimo(Productos *productos[], int cantidad)
+    {
+        double minimo = productos[0]->getPrecio() * productos[0]->getStock();
+        for (int i = 1; i < cantidad; i++)
+        {
+            double valor = productos[i]->getPrecio() * productos[i]->getStock();
+            if (valor < minimo)
+            {
+                minimo = valor;
+            }
+        }
+        cout << "Menor valor: " << minimo << endl;
+    }
+};
+
+int main()
+{
+    int opc, cant, stock, codigo;
+    string nombre;
+    double precio;
+
+    cout << "Ingrese la cantidad de productos maximos que desee: ";
+    cin >> cant;
+    cin.ignore();
+    cout << endl;
+    Productos **producto = new Productos *[cant];
+
+    while (true)
+    {
+        cout << "===== SISTEMA DE GESTION DE TIENDA =====" << endl;
+
+        cout << "\n========== MENU ==========" << endl;
+        cout << "1. Agregar producto" << endl;
+        cout << "2. Listar productos" << endl;
+        cout << "3. Buscar producto por codigo" << endl;
+        cout << "4. Calcular valores de productos" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opc;
+        cout << endl;
+        cin.ignore();
+
+        switch (opc)
+        {
+        case 1:
+            for (int i = 0; i < cant; i++)
+            {
+                codigo = i + 1;
+                cout << "cargando productos..." << endl;
+                cout << endl;
+                cout << "id del producto " << codigo << endl;
+
+                cout << "ingrese nombre: ";
+                getline(cin, nombre);
+
+                cout << "ingrse precio: ";
+                cin >> precio;
+                cin.ignore();
+
+                cout << "ingrese stock: ";
+                cin >> stock;
+                cin.ignore();
+
+                producto[i] = new Productos(nombre, precio, stock, codigo);
+                producto[i]->productosIngresados();
+                cout << endl;
+            }
+            break;
+
+        case 2:
+            cout << "Los productos ingresados son:" << endl;
+            cout << endl;
+            for (int i = 0; i < cant; i++)
+            {
+                producto[i]->mostrar();
+            }
+            cout << endl;
+            break;
+
+        case 3:
+            cout << endl;
+            cout << "ingrese el codigo del producto que desea buscar: ";
+            cin >> codigo;
+            cin.ignore();
+            for (int i = 0; i < cant; i++)
+            {
+                if (producto[i]->getCodigo() == codigo)
+                {
+                    cout << "id: " << producto[i]->getCodigo() << endl;
+                    cout << "nombre: " << producto[i]->getNombre() << endl;
+                    cout << "precio: " << producto[i]->getPrecio() << endl;
+                    cout << "stock: " << producto[i]->getStock() << endl;
+                }
+            }
+            cout << endl;
+            break;
+
+        case 4:
+        {
+            Calculo calculo;
+            if (cant <= 0 || producto[0] == nullptr)
+            {
+                cout << "Todavia no hay productos cargados." << endl;
+                break;
+            }
+
+            calculo.calcularTotal(producto, cant);
+            cout << endl;
+            calculo.calcularPromedio(producto, cant);
+            cout << endl;
+            calculo.calcularMaximo(producto, cant);
+            cout << endl;
+            calculo.calcularMinimo(producto, cant);
+        }
+            cout << endl;
+            break;
+
+        case 0:
+            for (int i = 0; i < cant; i++)
+            {
+                delete producto[i];
+            }
+            delete[] producto;
+            cout << "adios..." << endl;
+            return 0;
+
+        default:
+            cout << "Opcion invalida. Intente de nuevo." << endl;
+            break;
+        }
+    }
+    return 0;
+}
